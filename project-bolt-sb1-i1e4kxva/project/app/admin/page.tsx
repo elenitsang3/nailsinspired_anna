@@ -94,6 +94,15 @@ export default function AdminPage() {
     setBusy(false);
   };
 
+  const cancelBooking = async (id: string) => {
+    if (!confirm('Cancel this booking and reopen the time slot?')) return;
+    setBusy(true);
+    const { error } = await supabase.from('bookings').delete().eq('id', id);
+    if (error) { setSlotMsg(error.message); setBusy(false); return; }
+    await loadAll();
+    setBusy(false);
+  };
+  
   const getPhotoUrl = async (path: string) => {
     const { data } = await supabase.storage.from('reference-pics').createSignedUrl(path, 3600);
     if (data) window.open(data.signedUrl, '_blank');
