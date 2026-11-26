@@ -98,6 +98,18 @@ export default function BookPage() {
     }
   };
 
+  const cancelBooking = async (id: string) => {
+    if (!confirm('Are you sure you want to cancel this appointment?')) return;
+    setError(null);
+    const { error: delErr } = await supabase.from('bookings').delete().eq('id', id);
+    if (delErr) {
+      setError(delErr.message);
+      return;
+    }
+    setSuccess(false);
+    loadData();
+  };
+  
   if (loading) {
     return <div className="min-h-screen grid place-items-center"><Loader2 className="w-6 h-6 animate-spin text-stone-400" /></div>;
   }
@@ -222,8 +234,9 @@ export default function BookPage() {
               </div>
             ) : (
               <div className="space-y-3">
-                {upcoming.map((b) => {
+                               {upcoming.map((b) => {
                   const tierInfo = SERVICE_TIERS.find((t) => t.id === b.tier);
+                  const canCancel = b.slot ? new Date(b.slot.slot_start).getTime() - Date.now() > 24 * 60 * 60 * 1000 : false;
                   return (
                     <Card key={b.id} className="rounded-2xl border-border/70 overflow-hidden">
                       <CardContent className="p-4">
@@ -235,7 +248,21 @@ export default function BookPage() {
                             </p>
                             {b.design_notes && <p className="text-xs text-stone-400 mt-2 line-clamp-2">{b.design_notes}</p>}
                           </div>
-                          <span className="text-xs px-2 py-1 rounded-full bg-green-50 text-green-700 border border-green-200">Booked</span>
+                          <div className="flex flex-col items-end gap-2">
+                            <span className="text-xs px-2 py-1 rounded-full bg-green-50 text-green-700 border border-green-200">Booked</span>
+                            {canCancel ? (
+                              <Button
+                                size="sm"
+                                variant="outline"
+                                className="rounded-full border-destructive/40 text-destructive hover:bg-destructive/5 h-7 text-xs px-2.5"
+                                onClick={() => cancelBooking(b.id)}
+                              >
+                                Cancel
+                              </Button>
+                            ) : (
+                              <span className="text-[11px] text-stone-400 text-right">Within 24h - dm me to cancel</span>
+                            )}
+                          </div>
                         </div>
                       </CardContent>
                     </Card>
