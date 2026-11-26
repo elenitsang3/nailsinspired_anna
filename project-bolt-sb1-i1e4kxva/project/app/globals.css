@@ -1,0 +1,98 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 40 30% 98%;
+    --foreground: 30 10% 12%;
+    --card: 0 0% 100%;
+    --card-foreground: 30 10% 12%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 30 10% 12%;
+    --primary: 340 35% 22%;
+    --primary-foreground: 40 30% 98%;
+    --secondary: 30 15% 92%;
+    --secondary-foreground: 30 10% 20%;
+    --muted: 30 10% 94%;
+    --muted-foreground: 30 5% 45%;
+    --accent: 340 50% 50%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 72% 45%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 30 15% 88%;
+    --input: 30 15% 86%;
+    --ring: 340 40% 30%;
+    --radius: 0.625rem;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "ss01", "cv01";
+  }
+  .font-display {
+    font-family: var(--font-playfair), Georgia, serif;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+  .nail-gradient-rose {
+    background: linear-gradient(135deg, #e8b4c4 0%, #d98ba3 40%, #b86a82 100%);
+  }
+  .nail-gradient-mauve {
+    background: linear-gradient(135deg, #d4a5a5 0%, #b08a9e 50%, #8a6b82 100%);
+  }
+  .nail-gradient-nude {
+    background: linear-gradient(135deg, #f0d9c4 0%, #e0c0a8 50%, #c9a98c 100%);
+  }
+  .nail-gradient-noir {
+    background: linear-gradient(135deg, #2a2426 0%, #1a1517 100%);
+  }
+  .nail-gradient-pearl {
+    background: linear-gradient(135deg, #f5f0ec 0%, #e8dfd4 50%, #d9cab8 100%);
+  }
+  .nail-gradient-sage {
+    background: linear-gradient(135deg, #c5d1c0 0%, #a3b39a 50%, #7e8f74 100%);
+  }
+  .nail-gradient-ember {
+    background: linear-gradient(135deg, #e8956b 0%, #d06a45 50%, #a8482a 100%);
+  }
+  .nail-gradient-bordeaux {
+    background: linear-gradient(135deg, #8a3a4a 0%, #6b2a38 50%, #4a1a26 100%);
+  }
+  .nail-gradient-blush {
+    background: linear-gradient(135deg, #f7d9da 0%, #eab8bc 50%, #d99a9f 100%);
+  }
+  .nail-gradient-gold {
+    background: linear-gradient(135deg, #e6c98a 0%, #d4a857 50%, #b08838 100%);
+  }
+  .glass {
+    background: rgba(255,255,255,0.7);
+    backdrop-filter: blur(12px);
+  }
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate-fade-up {
+  animation: fadeUp 0.6s ease-out both;
+}
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+.animate-shimmer {
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+  background-size: 200% 100%;
+  animation: shimmer 2.5s infinite;
+}
