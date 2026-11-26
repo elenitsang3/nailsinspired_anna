@@ -239,6 +239,9 @@ export default function AdminPage() {
                             ) : (
                               <span className="text-xs text-stone-400">No photo</span>
                             )}
+                            <Button size="sm" variant="outline" className="rounded-full border-destructive/40 text-destructive hover:bg-destructive/5" onClick={() => cancelBooking(b.id)} disabled={busy}>
+  Cancel
+</Button>
                           </div>
                         </div>
                       </CardContent>
